@@ -1,6 +1,6 @@
-// import logo from './logo.svg';
 import {useState, useEffect} from 'react';
-import './App.css';
+import {Link} from 'react-router-dom';
+import HomeNavigation from '../Componenets/HomeNavigation';
 
 const times = {
   "mon": "08:00am - 5:00pm",
@@ -17,12 +17,9 @@ const booked = {
   "until": "2022-03-09T10:10:30Z" //If you put a Z at then end of it then the Time seems to become UTC
 }
 
-function App() {
-  // console.log(new Date(booked.until).getDate())
+export default function Home() {
   const [getBooked, setBooked] = useState();
   useEffect(() => {
-    // console.log()
-    // translateTime(booked).then(date => setBooked(date)).catch(err => );
     setBooked(translateTime(booked));
   }, [])
 
@@ -30,21 +27,7 @@ function App() {
 
   return (
     <div className="App">
-      <nav className="App-navigation">
-        <a href="#top" className="company-logo">
-          {/*<img src="/logo_transparent.png" alt="logo"/>*/}
-          Finnerty Automotive
-        </a>
-        {/*<img className="company-logo" src="/logo.svg" alt="logo"/>*/}
-        <ul className="navigation-list">
-          <li className="navigation-list-item"><a href="#services">Our services</a></li>
-          <li className="navigation-list-item"><a href="#location">Where we are</a></li>
-          <li className="navigation-list-item"><a href="#about">About us</a></li>
-          <li className="navigation-list-item"><a href="#hours">Business Hours</a></li>
-          <li className="navigation-list-item"><a href="#contact">Contact us</a></li>
-          <li className="navigation-list-item nav-list-blog"><a href="#contact">Blog</a></li>
-        </ul>
-      </nav>
+      <HomeNavigation />
       <header className="App-header">
         <h1 className="App-Name">Finnerty Automotive</h1>
       </header>
@@ -148,7 +131,7 @@ function App() {
         <div className="footer">
           <p className="footer-element">* Airconditioning sercicing number: <em>rta au33900</em></p>
           <p className="footer-element">Mecanic License Number: <em>mvrl47366</em></p>
-          <p className="footer-element login-tag"><a href="#top">Login</a></p>
+          <p className="footer-element login-tag"><Link to="/login">Login</Link></p>
         </div>
       </div>
       {/*Blogs*/}
@@ -163,5 +146,3 @@ const translateTime = (booked) => {
   // console.log(date, today);
   return date<today?{booked: false}:{booked: true, until: date.toUTCString().slice(0,16)};
 }
-
-export default App;
