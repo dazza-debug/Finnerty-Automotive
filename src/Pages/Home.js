@@ -66,7 +66,7 @@ export default function Home() {
       <div id="about">
         <h3 className="headding">About Finnerty Automotive</h3>
         <div className="about-content">
-          <img src="https://www.cashcarsbuyer.com/wp-content/uploads/2020/07/Wheel-Alignment-Cost-2-1200x900.jpg" alt="wheel alignemnt" width="300px" height="200px"/>
+          <img src={`${process.env.PUBLIC_URL}/IMG_0935.jpeg`} alt="wheel alignemnt" width="400px" height="300px"/>
           <p>
             We have a combined 84 years of experice within the Automotive industry and 
             we strive to give top level service and performance to our cusomters. 
@@ -131,7 +131,7 @@ export default function Home() {
         <div className="footer">
           <p className="footer-element">* Airconditioning sercicing number: <em>rta au33900</em></p>
           <p className="footer-element">Mecanic License Number: <em>mvrl47366</em></p>
-          <p className="footer-element login-tag"><Link to="/login">Login</Link></p>
+          {/*<p className="footer-element login-tag"><Link to="/login">Login</Link></p>*/}
         </div>
       </div>
       {/*Blogs*/}

@@ -5,6 +5,12 @@
 /.pnp
 .pnp.js
 
+# images
+/src/iStock-177132533-xlarge.jpg
+/src/iStock-177132533-large.jpg
+/src/iStock-177132533-medium.jpg
+/src/iStock-177132533-small.jpg
+
 # testing
 /coverage
 

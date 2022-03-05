@@ -18,7 +18,7 @@
 /*Header*/
 .App-header {
   /*background-color: #282c34;*/
-  background: url(https://assets.whichcar.com.au/image/upload/s--vHBsUrrp--/ar_2.304921968787515,c_fill,f_auto,q_auto:good/v1/archive/whichcar/2016/06/02/-1/Car-Engine-top.jpg) center center no-repeat #282c34;
+  background: url("./iStock-177132533-xlarge.jpg") center center no-repeat #282c34;
   background-size: cover;
   background-attachment: fixed;
   height: 90vh;
@@ -187,6 +187,7 @@
 
 .location-list {
   /*list-style-type: "–";*/
+  width: 40%;
   list-style: none;
   display: flex;
   flex-direction: column;
@@ -204,6 +205,7 @@
 /*About*/
 #about {
   padding-top: 50px;
+  /*margin: 0 10%;*/
   height: 500px;
   width: 100%;
   background: #e0e1e1c7;
@@ -214,13 +216,14 @@
 }
 
 .about-content {
+  margin: 0 10%;
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
   align-items: center;
 }
 
 .about-content img {
-  margin: 50px 10%;
+  margin: 50px 0;
   border-radius: 15px;
   border: 1px solid #0000006e;
   object-fit: cover;
@@ -374,14 +377,23 @@
   .App-navigation {
     height: 5vh;
   }
-  .location-content {
-    margin: 50px 15%;
+  .location-content, .about-content {
+    margin: 0 15%;
   }
+  /*#about*/
   #hours {
     height: 500px;
   }
   .hours-content {
     margin: 0 15%;
+  }
+}
+
+@media only screen and (max-width: 1350px), (max-height: 900px) {
+  .App-header {
+    background: url("./iStock-177132533-large.jpg") center center no-repeat #282c34;
+    background-size: cover;
+    background-attachment: initial;
   }
 }
 
@@ -396,6 +408,8 @@
   }*/
 
   .App-header {
+    background: url("./iStock-177132533-medium.jpg") center center no-repeat #282c34;
+    background-size: cover;
     background-attachment: initial;
   }
   .navigation-list {
@@ -481,6 +495,11 @@
   /*.App-header{
 
   }*/
+  .App-header {
+    background: url("./iStock-177132533-small.jpg") center center no-repeat #282c34;
+    background-size: cover;
+    background-attachment: initial;
+  }
   .App-Name {
     padding: 0;
     font-size: 2.5rem;
