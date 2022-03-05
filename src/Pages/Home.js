@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-import {Link} from 'react-router-dom';
+// import {Link} from 'react-router-dom';
 import HomeNavigation from '../Componenets/HomeNavigation';
 
 const times = {
@@ -14,7 +14,7 @@ const times = {
 
 const booked = {
   "booked": "true",
-  "until": "2022-03-09T10:10:30Z" //If you put a Z at then end of it then the Time seems to become UTC
+  "until": "2022-03-19T10:10:30Z" //If you put a Z at then end of it then the Time seems to become UTC or Non UTC
 }
 
 export default function Home() {
@@ -89,15 +89,6 @@ export default function Home() {
               <li>Saturday</li>
               <li>Sunday</li>
             </ul>
-            {/*<ul className="column-dash">
-              <li>—</li>
-              <li>—</li>
-              <li>—</li>
-              <li>—</li>
-              <li>—</li>
-              <li>—</li>
-              <li>—</li>
-            </ul>*/}
             <ul className="column-hours">
               <li>{times.mon}</li>
               <li>{times.tue}</li>
@@ -116,7 +107,7 @@ export default function Home() {
                   <p>Walk in's are accepted at this time.</p>
                 </>):
                 (<>
-                  <p>We are currently booked out until <em>{getBooked.until}</em>.</p>
+                  <p>We are currently booked out <em>for two weeks</em>.</p>
                   <p>We do not accept walk in's at this time.</p>
                 </>)
             }
