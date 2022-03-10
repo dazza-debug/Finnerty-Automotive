@@ -1,6 +1,12 @@
+import {useState} from 'react';
 import {Link} from 'react-router-dom';
 
-export default function BlogNavigation() {
+export default function BlogNavigation({blogPage}) {
+
+	const [open, setOpen] = useState(false);
+
+	const closeBar = () => setOpen(false)
+	// console.log(blogPage)
 	return(
 		<nav className="App-navigation">
 			<Link to="/" className="company-logo">
@@ -8,9 +14,11 @@ export default function BlogNavigation() {
 			Finnerty Automotive
 			</Link>
 			{/*<img className="company-logo" src="/logo.svg" alt="logo"/>*/}
-			<ul className="navigation-list">
-				<li className="navigation-list-item"><Link to="/">Home</Link></li>
-				<li className="navigation-list-item nav-list-blog"><a href="#top">Top</a></li>
+			<div className="navigation-list-item nav-drop-down" onClick={() => setOpen(!open)}><a>{open?'↑↑↑':'↓↓↓'}</a></div>
+			<ul className={`navigation-list ${open||'close-nav-bar'}`}>
+				<li className="navigation-list-item" onClick={closeBar}><Link to="/">Home</Link></li>
+				<li className={`navigation-list-item nav-list-blog ${!blogPage||'hide'}`} onClick={closeBar}><a href="#top">Top</a></li>
+				<li className={`navigation-list-item nav-list-blog ${blogPage||'hide'}`} onClick={closeBar}><Link to="/blog">Back</Link></li>
 			</ul>
 		</nav>
 		)

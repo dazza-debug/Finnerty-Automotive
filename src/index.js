@@ -10,16 +10,20 @@ import './App.css';
 import Home from './Pages/Home';
 import Login from './Pages/Login';
 import Blog from './Pages/Blog';
+import BlogPost from './Pages/BlogPost';
+import Banner from './Componenets/Banner';
 // import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
     <Router>
+      <Banner />
       <Routes>
         <Route path="/" element={<Home/>}/>
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/blog" element={<Blog/>}/>
+        <Route path="login" element={<Login/>}/>
+        <Route path="blog" element={<Blog/>} />
+        <Route path="blog/:id" element ={<BlogPost />} />
       </Routes>
     </Router>
     {/*<Home />*/}

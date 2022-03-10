@@ -3,6 +3,18 @@
   position: relative;
 }
 
+.banner {
+  background: #b00000b8;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  cursor: default;
+}
+
+.banner-close {
+  cursor: pointer;
+}
+
 .App-Name {
   text-shadow: -2px -2px 0 #648bb7, 2px -2px 0 #648bb7, -2px 2px 0 #648bb7, 2px 2px 0 #648bb7;
   padding: 10vmin ;
@@ -387,6 +399,11 @@
   .hours-content {
     margin: 0 15%;
   }
+}
+
+/*Misc*/
+.hide {
+  display: none;
 }
 
 @media only screen and (max-width: 1350px), (max-height: 900px) {

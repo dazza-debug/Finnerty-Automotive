@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react';
-// import {Link} from 'react-router-dom';
+import {Link} from 'react-router-dom';
 import HomeNavigation from '../Componenets/HomeNavigation';
 
 const times = {
@@ -122,7 +122,7 @@ export default function Home() {
         <div className="footer">
           <p className="footer-element">* Airconditioning sercicing number: <em>rta au33900</em></p>
           <p className="footer-element">Mecanic License Number: <em>mvrl47366</em></p>
-          {/*<p className="footer-element login-tag"><Link to="/login">Login</Link></p>*/}
+          <p className="footer-element login-tag"><Link to="/login">Login</Link></p>
         </div>
       </div>
       {/*Blogs*/}

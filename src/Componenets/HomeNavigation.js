@@ -22,7 +22,7 @@ export default function HomeNavigation() {
 				<li className="navigation-list-item" onClick={closeBar}><a href="#hours">Business Hours</a></li>
 				<li className="navigation-list-item" onClick={closeBar}><a href="#contact">Contact us</a></li>
 				{/*<li className="navigation-list-item nav-list-home"><a href="#top">Home</a></li>*/}
-				{/*<li className="navigation-list-item nav-list-blog"><Link to="/blog">Blog</Link></li>*/}
+				<li className="navigation-list-item nav-list-blog"><Link to="/blog">Blog</Link></li>
 			</ul>
 		</nav>
 		)
