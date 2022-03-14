@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 .pnp.js
+.env
 
 # images
 /src/iStock-177132533-xlarge.jpg

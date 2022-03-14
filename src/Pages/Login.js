@@ -1,10 +1,32 @@
-import {Link} from 'react-router-dom';
+import {useNavigate, Link} from 'react-router-dom';
+import {useState} from 'react';
 import './login.css';
 
 export default function Login() {
+
+	const navigate = useNavigate();
+	const [error, setError] = useState(null);
+
 	const sumbitLogin = event => {
 		event.preventDefault();
-		console.log(event.target.email.value, event.target.password.value);
+		fetch('http://localhost:3001/fa/login', {
+			method: 'POST',
+			headers: {"Content-Type":"application/json"},
+			body: JSON.stringify({
+				email: event.target.email.value,
+				pass: event.target.password.value
+			})
+		}).then((res) => res.json())
+		.then((data) => {
+			if(data?.success === "true")
+				window.sessionStorage.setItem(process.env.REACT_APP_TOKEN, data.token);
+			else
+				return Promise.reject(data);
+		})
+		.then(() => navigate('/'))
+		.catch(err => setError(err));
+		// console.log(event.target.email.value, event.target.password.value);
+		console.log(error);
 	}
 
 	return(

@@ -1,0 +1,68 @@
+.be-parent {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 100vw;
+	height: 100vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background: #555555AA;
+	z-index: 1;
+}
+
+.be-container {
+	position: relative;
+	background: white;
+	/*height: 50vh;*/
+	width: 50vw;
+	z-index: 2;
+	border-radius: 5px;
+	border: 1px solid #ABABAB;
+	padding: 15px;
+	text-align: center;
+}
+
+.be-form {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.be-form label, .be-form button {
+	margin-top: 15px;
+	font-size: 1.2rem;
+	font-weight: 500;
+}
+
+#title {
+	width: 70%;
+	font-family: monospace;
+	padding: 5px;
+}
+
+#blogContent {
+	width: 70%;
+	height: 150px;
+	resize: none;
+	margin: 1px;
+	padding: 5px;
+}
+
+.be-form button {
+	width: 150px;
+	padding: 10px;
+	margin: 15px 5px 5px 5px;
+	/*background: #0a95ff;*/
+	color: #0a95ff;
+	background: inherit;
+	border: none;
+	border-radius: 5px;
+	cursor: pointer;
+}
+
+.be-form button:hover {
+	text-decoration: underline;
+	text-underline-position: under;
+}
