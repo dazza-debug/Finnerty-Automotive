@@ -1,10 +1,34 @@
+.App-Container {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
 .App {
   text-align: center;
   position: relative;
 }
 
+.App-NotFound {
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.notFound-content {
+  /*border: 1px solid black;*/
+  padding: 50px;
+  box-shadow: 3px 3px 3px 3px rgba(0,0,0,0.28);
+  /*box-shadow: 0px 0px 3px 3px rgba(0, 0, 0,0.10);*/
+  border-radius: 5px;
+  
+}
+
 .banner {
-  background: #b00000b8;
+  /*background: #b00000b8;*/
+  background: #48A14D;
+  color: white;
   display: flex;
   justify-content: space-between;
   padding: 10px;
@@ -12,12 +36,35 @@
   /*z-index: 2;*/
 }
 
+.warn {
+  background: #EDD94C;
+  color: #363945;
+}
+
+.err {
+  background: #B33F40;
+  color: white;
+}
+
+/*.log {
+  position: sticky;
+  top: 10vh;
+
+  z-index: 2;
+  
+  position: fixed;
+  top: 10vh;
+  z-index: 2;
+  width: calc(100% - 50px);
+  padding: 10px 25px;
+}
+*/
 .banner-close {
   cursor: pointer;
 }
 
 .App-Name {
-  text-shadow: -2px -2px 0 #648bb7, 2px -2px 0 #648bb7, -2px 2px 0 #648bb7, 2px 2px 0 #648bb7;
+  text-shadow: -2px -2px 0 #C6D7E7, 2px -2px 0 #C6D7E7, -2px 2px 0 #C6D7E7, 2px 2px 0 #C6D7E7;
   padding: 10vmin ;
   /*height: 40vmin;
   pointer-events: none;*/
@@ -40,7 +87,7 @@
   align-items: center;
   justify-content: center;
   font-size: calc(30px + 2vmin);
-  color: #76a4d5;
+  color: #4278AF;
 }
 
 .App-navigation {
@@ -348,7 +395,7 @@
 #contact {
   padding-top: 50px;
   width: 100%;
-  height: 400px;
+  height: 450px;
   background: #282c34;
   position: relative;
   /*background: #253662d9;*/
@@ -484,7 +531,7 @@
     height: 400px;
   }
   #contact {
-    height: 210px;
+    height: 225px;
   }
   #contact>p {
     padding-top: 10px;

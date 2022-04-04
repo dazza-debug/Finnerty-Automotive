@@ -31,6 +31,11 @@
 	/*width: 300px;*/
 }
 
+.login-form .banner {
+	width: 75%;
+	border-radius: 4px;
+}
+
 .login-form input {
 	display: block;
 	width:75%;

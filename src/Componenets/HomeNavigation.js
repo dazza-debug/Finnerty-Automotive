@@ -1,12 +1,12 @@
 import {Link} from 'react-router-dom';
 import {useState} from 'react';
 
-export default function HomeNavigation() {
+export default function HomeNavigation({emergency=false}) {
 	const [open, setOpen] = useState(false);
 
 	const closeBar = () => setOpen(false);
 
-	console.log(open); 
+	// console.log(open); 
 	return(
 		<nav className="App-navigation">
 			<a href="#top" className="company-logo">
@@ -22,7 +22,10 @@ export default function HomeNavigation() {
 				<li className="navigation-list-item" onClick={closeBar}><a href="#hours">Business Hours</a></li>
 				<li className="navigation-list-item" onClick={closeBar}><a href="#contact">Contact us</a></li>
 				{/*<li className="navigation-list-item nav-list-home"><a href="#top">Home</a></li>*/}
-				<li className="navigation-list-item nav-list-blog"><Link to="/blog">Blog</Link></li>
+				{
+					emergency||<li className="navigation-list-item nav-list-blog"><Link to="/blog">Blog</Link></li>
+				}
+				{/*<li className="navigation-list-item nav-list-blog"><Link to="/blog">Blog</Link></li>*/}
 			</ul>
 		</nav>
 		)

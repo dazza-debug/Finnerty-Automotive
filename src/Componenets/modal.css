@@ -3,25 +3,39 @@
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
-	width: 100vw;
-	height: 100vh;
+	width: 98vw;
+	height: 96vh;
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	background: #555555AA;
-	z-index: 1;
+	background: #FDFBF9;
+	/*background: #6577B3;*/
+	/*background-image: linear-gradient(90deg, rgba(184, 184, 184,1) 0%, rgba(227,227,227,1) 100%);*/
+	background-size: 200vw 200vh;
+	box-shadow: 0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+	color: #333C5A;
+	z-index: 3;
+	border-radius: 5px;
+	display: flex;
+	flex-wrap: wrap;
+	/*flex-direction: column;*/
+}
+
+.be-parent>.banner{
+	flex-basis: 100%;
 }
 
 .be-container {
 	position: relative;
-	background: white;
-	/*height: 50vh;*/
-	width: 50vw;
+	/*background: white;*/
+	height: 75vh;
+	width: 75vw;
 	z-index: 2;
-	border-radius: 5px;
-	border: 1px solid #ABABAB;
+	/*border-radius: 5px;*/
+	/*border: 1px solid #ABABAB;*/
 	padding: 15px;
 	text-align: center;
+	overflow-y: scroll;
 }
 
 .be-form {
@@ -30,10 +44,17 @@
 	align-items: center;
 }
 
-.be-form label, .be-form button {
+.be-form label, .be-form-buttons>button {
 	margin-top: 15px;
 	font-size: 1.2rem;
 	font-weight: 500;
+}
+
+.be-form input, .be-form textarea {
+	background: #E4E2E1;
+	/*border: 1px dashed #989795;*/
+	border: 0;
+	border-radius: 3px;
 }
 
 #title {
@@ -50,19 +71,92 @@
 	padding: 5px;
 }
 
-.be-form button {
+.be-form-buttons>button {
 	width: 150px;
 	padding: 10px;
 	margin: 15px 5px 5px 5px;
+	text-transform: uppercase;
 	/*background: #0a95ff;*/
-	color: #0a95ff;
-	background: inherit;
+	color: #F0F1F7;
+	/*background: inherit;*/
+	background-image: linear-gradient(90deg, rgba(135, 193, 255,1) 0%, rgba(90,168,255,1) 50%);
+	background-size: 100vw 100vh;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
 	border: none;
 	border-radius: 5px;
 	cursor: pointer;
+	text-decoration: none;
+	text-underline-position: under;
+	transition: all 0.5s ease 0s;
 }
 
-.be-form button:hover {
+.theme-blue {
+	background: #6577B3;
+	color: #333C5A;
+}
+
+.theme-blue button {
+	background-image: linear-gradient(90deg, rgba(135, 193, 255,1) 0%, rgba(90,168,255,1) 50%);
+	color: #F0F1F7;
+	transition: all 0.5s ease 0s;
+}
+
+.theme-blue button:hover {
+	background-image: linear-gradient(90deg, rgba(135,193,255,1) 0%, rgba(255,146,135,1) 50%);
+}
+
+.be-form-buttons>button:hover, .be-preview-buttons>button:hover {
 	text-decoration: underline;
+	transform: translate(-3px, -3px);
+	/*color: #F0F1F7;*/
+}
+
+.be-preview-scroll {
+	height: 300px;
+	overflow-y: scroll;
+}
+
+.be-preview-full {
+	position: fixed;
+	z-index: 3;
+	height: 100%;
+	width: 100%;
+	top: 0;
+	left: 0;
+	background-color: white;
+	border-radius: 5px;
+	overflow-y: scroll;
+}
+
+.be-preview-buttons>button {
+	padding: 5px;
+	margin: 5px;
+	color: #F0F1F7;
+	background-image: linear-gradient(90deg, rgba(135, 193, 255,1) 0%, rgba(90,168,255,1) 50%);
+	background-size: 100vw 100vh;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	border: none;
+	border-radius: 3px;
+	cursor: pointer;
+	text-decoration: none;
 	text-underline-position: under;
+	transition: all 0.5s ease 0s;
+}
+
+.wrapper-class {
+  padding: 1rem;
+  width: 70%;
+  /*border: 1px solid #ccc;*/
+}
+.editor-class {
+  background-color: #E4E2E1;
+  padding: 1rem;
+  border-radius: 3px;
+  border: 0;
+  min-height: 100px;
+}
+.toolbar-class {
+  border: 0;
+  /*border-radius: 3px;*/
+  background-color: #E4E2E1;
 }

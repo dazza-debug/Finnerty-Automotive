@@ -1,12 +1,13 @@
 import BlogNavigation from '../Componenets/BlogNavigation';
-import {useParams} from 'react-router-dom';
-import React, {useState, useEffect, Suspense} from 'react';
+import {loginValidation} from '../App';
+import {deleteItem} from './Blog';
+import {useParams, Outlet, useNavigate} from 'react-router-dom';
+import React, {useState, useEffect} from 'react';
 import './blogpost.css';
 
-const NotFound = React.lazy(() => import('../Componenets/NotFound')); 
-
-export default function BlogPost() {
+export default function BlogPost({getUser}) {
 	let params = useParams();
+	const navigate = useNavigate();
 	const [blogData, setBlogData] = useState(null);
 	const [commentData, setCommentData] = useState(null);
 	const [notFound, setNotFound] = useState(false);
@@ -29,9 +30,10 @@ export default function BlogPost() {
 	console.log(params);
 	return (
 		<div className="bp-container">
+			<Outlet context={{param:params, title:blogData?.title, blog: blogData?.blog}}/>
 			<BlogNavigation blogPage={true}/>
 			{!blogData&&!notFound?blogLoading():!notFound?
-				blogLoaded(blogData, params, commentEditor, setCommentEditor):blogErrored()}
+				blogLoaded(blogData, params, commentEditor, setCommentEditor, commentData, getUser, navigate):blogErrored()}
 		</div>
 	)
 }
@@ -52,13 +54,17 @@ const blogErrored = () => {
 	)
 }
 
-const blogLoaded = (blogData, params, commentEditor, setCommentEditor) => { //i dont like this many props :(
+const blogLoaded = (blogData, params, commentEditor, setCommentEditor, commentData, getUser, navigate) => { //i dont like this many props :(
 	return(
 		<div className="bp-component">
+			{
+				loginValidation(getUser)&&<button onClick={() => navigate(`/blog/${params.id}/editor`)}>Edit This Blog</button>
+			}
 			<div className="bp-blog-section">
 				<h2>{blogData.title}</h2>
 				<div className="bp-blog-info">
-					<p>{blogData.blog}</p>
+					{/*<p>{blogData.blog}</p>*/}
+					<div dangerouslySetInnerHTML={{__html: blogData.blog}}/>
 					<p>{`Written By: ${blogData.author}`}</p>
 				</div>
 				<div className="bp-blog-date">
@@ -74,42 +80,45 @@ const blogLoaded = (blogData, params, commentEditor, setCommentEditor) => { //i 
 					<form className={`${commentEditor||'hide'} bp-commenter-form `} 
 					onSubmit={(event) => postComment(event, params)}>
 						<textarea id="commentField" 
-							name="commentField" 
+							name="commentField" required
 							placeholder="Type your comment here..."/>
 						<input id="email" 
 							name="email" 
-							type="email" 
+							type="email" required
 							placeholder="Type your email here..."/>
 						<input id="name" 
 							name="name" 
-							type="text" 
+							type="text" required
 							placeholder="Type your name here..."/>
 						<button>Post Comment</button>
 					</form>
 				</div>
 				<div className="bp-comments">
-					<div className="bp-comment">
-						<h4>29/03/2022</h4>
-						<p>this is a comment</p>
-						<p>Commented By: Daz Daz</p>
-					</div>
-					<div className="bp-comment">
-						<h4>30/03/2022</h4>
-						<p>this is a bad comment</p>
-						<p>Commented By: Daz Daz</p>
-					</div>
+					{
+					commentData?commentData.map((record, key) => commentComponent(record, key, getUser)):noComment()
+					}
 				</div>
 			</div>
 		</div>
 	)
 }
 
-const commentComponent = (params) => {
+const commentComponent = ({id, comment, author, date}, key, getUser) => {
+	return (
+		<div className="bp-comment" key={key}>
+			<div className={`bp-comment-delete ${loginValidation(getUser)||'hide'}`}
+			onClick={() => deleteItem(id, `comment by: ${author}`, 'comment')}>Delete</div>
+			<h4>{date}</h4>
+			<p>{comment}</p>
+			<p>Commented By: {author}</p>
+		</div>
+	)
+}
+
+const noComment = () => {
 	return (
 		<div className="bp-comment">
-			<h4>29/03/2022</h4>
-			<p>this is a comment</p>
-			<p>Commented By: Daz Daz</p>
+			<h4>There are no comments</h4>
 		</div>
 	)
 }
@@ -124,7 +133,8 @@ const postComment = async (event, params) => {
 			idfor: params.id,
 			comment: event.target.commentField.value,
 			author: event.target.name.value,
-			email: event.target.email.value
+			email: event.target.email.value,
+			date: new Date().toDateString()
 		})
 	}).then(raw => raw.json())
 	.then(resp => resp?.id?window.location.reload(true):Promise.reject(resp))

@@ -1,167 +1,126 @@
-// import logo from './logo.svg';
-import {useState, useEffect} from 'react';
-import './App.css';
+// import {useState, cloneElement} from 'react';
 
-const times = {
-  "mon": "08:00am - 5:00pm",
-  "tue": "08:00am - 5:00pm",
-  "wed": "08:00am - 5:00pm",
-  "thu": "08:00am - 5:00pm",
-  "fri": "08:00am - 5:00pm",
-  "sat": "closed",
-  "sun": "closed"
-}
+// export default function App(props) {
+//   const [getUser, setUser] = useState('bob');
 
-const booked = {
-  "booked": "true",
-  "until": "2022-03-09T10:10:30Z" //If you put a Z at then end of it then the Time seems to become UTC
-}
+//   return <>{cloneElement(props.children, {getUser: 'bob'})}</>
+// }
 
-function App() {
-  // console.log(new Date(booked.until).getDate())
-  const [getBooked, setBooked] = useState();
+//I wanted to do whats above but it seems it doenst pass props through Router to the children
+//Another possible way would be to use React.Context or exporting something maybe?????
+
+import {useState, useEffect, createContext} from 'react';
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+import Home, {times, booked} from './Pages/Home';
+import HomeEditor from './Componenets/HomeEditor';
+import Login from './Pages/Login';
+import Register from './Pages/Register';
+import Blog from './Pages/Blog';
+import BlogPost from './Pages/BlogPost';
+import BlogEditor from './Componenets/BlogEditor';
+import Banner from './Componenets/Banner';
+import NotFound from './Componenets/NotFound';
+
+export const useMisc = createContext();
+
+export default function App() {
+
+  const [getUser, setUser] = useState(null);
+  const [getMisc, setMisc] = useState(miscTemplate(undefined, undefined));
+  //For Success banners. //What about making message banners stack messages with more then one of them
+  const [getMessage, setMessage] = useState(null)
+
   useEffect(() => {
-    // console.log()
-    // translateTime(booked).then(date => setBooked(date)).catch(err => );
-    setBooked(translateTime(booked));
+    if(window.sessionStorage.getItem(process.env.REACT_APP_TOKEN))
+      fetch(process.env.REACT_APP_URL + '/fa/login', {
+        method: 'POST',
+        headers: {'Authorization': window.sessionStorage.getItem(process.env.REACT_APP_TOKEN)}
+      }).then(raw => raw.status===401?Promise.reject('Unauthorized'):raw.json())
+      .then(data => setUser(userTemplate(data.name, true, data?.level))) //change to name
+      .catch(err => {console.log(err); window.sessionStorage.removeItem(process.env.REACT_APP_TOKEN);});
+    fetchMisc().then(record => setMisc(miscTemplate(times(record), booked(record))))
+    .catch(err => console.error(err));
   }, [])
 
-  console.log(getBooked);
+  return loginValidation(getUser,0)?fullSite(getMisc, getUser, setUser, getMessage, setMessage)
+    :emergencyShutdown(getMisc, getUser, setUser, setMessage);
+}
 
+const emergencyShutdown = (getMisc, getUser, setUser, setMessage) => {
   return (
-    <div className="App">
-      <nav className="App-navigation">
-        <a href="#top" className="company-logo">
-          {/*<img src="/logo_transparent.png" alt="logo"/>*/}
-          Finnerty Automotive
-        </a>
-        {/*<img className="company-logo" src="/logo.svg" alt="logo"/>*/}
-        <ul className="navigation-list">
-          <li className="navigation-list-item"><a href="#services">Our services</a></li>
-          <li className="navigation-list-item"><a href="#location">Where we are</a></li>
-          <li className="navigation-list-item"><a href="#about">About us</a></li>
-          <li className="navigation-list-item"><a href="#hours">Business Hours</a></li>
-          <li className="navigation-list-item"><a href="#contact">Contact us</a></li>
-          <li className="navigation-list-item nav-list-blog"><a href="#contact">Blog</a></li>
-        </ul>
-      </nav>
-      <header className="App-header">
-        <h1 className="App-Name">Finnerty Automotive</h1>
-      </header>
-      <div id="services">
-        <h3 className="headding">Our Services</h3>
-        <ul className="services-list">
-          <li className="grid-item-left">Vehicle Servicing</li>
-          <li className="grid-item-right">Brake & Clutch</li>
-          <li className="grid-item-left">Wheel Alignments</li>
-          <li className="grid-item-right">Automotive Repairs</li>
-          <li className="grid-item-left">Tires Fitment and Balancing</li>
-          <li className="grid-item-right">Air Conditioning Services <a href="#contact">*</a></li>
-          <li className="grid-row-cover">Authorized Inspection Station (including LPG)</li>
-          <li className="grid-row-cover">EFI Diagnostics & Tuning Specialist</li>
-          <li className="grid-row-cover">Ultra Sonic Fuel Injector Service</li>
-          <li className="grid-row-cover">24 Hour Towing Service</li>
-        </ul>
-      </div>
-      <div id="location">
-        <h3 className="headding">Where We Are</h3>
-        <div className="location-content">
-          <iframe 
-            title="Finnerty Automotive Location" 
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1600.1655851205126!2d149.82419663163137!3d-36.66653775415045!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x6b3c29e909d0b783%3A0xd764e1d64c8df041!2sFinnerty%20Automotive!5e0!3m2!1sen!2sau!4v1645762061637!5m2!1sen!2sau" 
-            width="400" height="300" 
-            allowFullScreen="" loading="lazy"
-            samesite="none">
-          </iframe>
-          <ul className="location-list">
-            <li>Find us at </li>
-            <li>Corner of West & Ridge Street</li>
-            <li>North Bega NSW 2550</li>
-          </ul>
-        </div>
-      </div>
-      <div id="about">
-        <h3 className="headding">About Finnerty Automotive</h3>
-        <div className="about-content">
-          <img src="https://www.cashcarsbuyer.com/wp-content/uploads/2020/07/Wheel-Alignment-Cost-2-1200x900.jpg" alt="wheel alignemnt" width="300px" height="200px"/>
-          <p>
-            We have a combined 84 years of experice within the Automotive industry and 
-            we strive to give top level service and performance to our cusomters. 
-            We try to always have a one on one base with our customers.
-            Our shop has lived in North Bega for over 14 years, providing the best
-            service to the Bega Valley Area. 
-          </p>
-        </div>
-      </div>
-      <div id="hours">
-        <h3 className="headding">Business Hours</h3>
-        <div className="hours-content">
-          <div className="business-hours">
-            <ul className="column-days">
-              <li>Monday</li>
-              <li>Tuesday</li>
-              <li>Wednesday</li>
-              <li>Thursday</li>
-              <li>Friday</li>
-              <li>Saturday</li>
-              <li>Sunday</li>
-            </ul>
-            {/*<ul className="column-dash">
-              <li>—</li>
-              <li>—</li>
-              <li>—</li>
-              <li>—</li>
-              <li>—</li>
-              <li>—</li>
-              <li>—</li>
-            </ul>*/}
-            <ul className="column-hours">
-              <li>{times.mon}</li>
-              <li>{times.tue}</li>
-              <li>{times.wed}</li>
-              <li>{times.thu}</li>
-              <li>{times.fri}</li>
-              <li>{times.sat}</li>
-              <li>{times.sun}</li>
-            </ul>
-          </div>
-          <div className="bookings">
-            {
-              !getBooked || !getBooked.booked?
-                (<>
-                  <p>Please <a href="#contact">call us here</a> to book your vehicle in.</p>
-                  <p>Walk in's are accepted at this time.</p>
-                </>):
-                (<>
-                  <p>We are currently booked out until <em>{getBooked.until}</em>.</p>
-                  <p>We do not accept walk in's at this time.</p>
-                </>)
-            }
-          </div>
-        </div>
-      </div>
-      <div id="contact">
-        <h3 className="headding">Contact Us</h3>
-        <p>Ph: (02) 6492 0245</p>
-        <p>Fax: (02) 6492 0250</p>
-        <p>Email: finnertyautomotives@bigpond.com.au</p>
-        <div className="footer">
-          <p className="footer-element">* Airconditioning sercicing number: <em>rta au33900</em></p>
-          <p className="footer-element">Mecanic License Number: <em>mvrl47366</em></p>
-          <p className="footer-element login-tag"><a href="#top">Login</a></p>
-        </div>
-      </div>
-      {/*Blogs*/}
-    </div>
-  );
+    <useMisc.Provider value={getMisc}>
+      <Router>
+          <Banner />
+          <Routes>
+            <Route path="*" element={<NotFound />} />
+            <Route path="/" element={<Home getUser={getUser} setUser={setUser} emergency={true}/>} />
+            <Route path="login" element={<Login setUser={setUser} setMessage={setMessage}/>}/>
+          </Routes>
+      </Router>
+    </useMisc.Provider>
+  )
 }
 
-const translateTime = (booked) => {
-  if(booked.booked !== "true" || !booked.until) return {booked: false};
-  const date = new Date(booked.until);
-  const today = new Date();
-  // console.log(date, today);
-  return date<today?{booked: false}:{booked: true, until: date.toUTCString().slice(0,16)};
+const fullSite = (getMisc, getUser, setUser, getMessage, setMessage) => {
+  return (
+    <useMisc.Provider value={getMisc}>
+      <Router>
+          <Banner />
+          {
+            getMessage&&<Banner error setError message={getMessage} setMessage={() => setMessage(null)}/>
+          }
+          <Routes>
+            <Route path="*" element={<NotFound />} />
+            <Route path="/" element={<Home getUser={getUser} setUser={setUser}/>}>
+              <Route path="editor" element={<HomeEditor setMessage={setMessage}/>}/>
+            </Route>
+            <Route path="login" element={<Login setUser={setUser} setMessage={setMessage}/>}/>
+            <Route path="register" element={<Register setUser={setUser} setMessage={setMessage}/>}/>
+            <Route path="blog" element={<Blog getUser={getUser}/>}>
+              <Route path="editor" element={<BlogEditor getUser={getUser} setMessage={setMessage}/>} />
+            </Route>
+            <Route path="blog/:id" element ={<BlogPost getUser={getUser}/>}>
+              <Route path="editor" element={<BlogEditor getUser={getUser} setMessage={setMessage}/>} />
+            </Route>
+          </Routes>
+      </Router>
+    </useMisc.Provider>
+  )
 }
 
-export default App;
+//Templates
+export const userTemplate = (name, loggedin, security=0) => ({name: name, loggedIn: loggedin, security:security })
+const miscTemplate = (times, booked) => ({getTimes: times, getBooked: booked});
+
+
+//Fetches
+const fetchMisc = () => {
+  return new Promise((resolve, reject) => 
+    fetch(process.env.REACT_APP_URL+'/fa/misc').then(raw => raw.json())
+    .then(result => result?.id?resolve(result):reject(result)).catch(reject));
+}
+
+export const logout = (setUser) => {
+  const clean = () => {
+    setUser(null); 
+    window.sessionStorage.removeItem(process.env.REACT_APP_TOKEN)
+  }
+  fetch(process.env.REACT_APP_URL + '/logout', {
+      method: 'POST',
+      headers: {
+        "Content-Type": "application/json", 
+        "Authorization": window.sessionStorage.getItem(process.env.REACT_APP_TOKEN)
+      }
+    }).then(() => clean())
+    .catch(err => {console.error(err); clean();})
+}
+
+
+//Validation
+export const loginValidation = (user, securityLevel=4) => {
+  return user?.name&&user?.loggedIn&&user?.security>=securityLevel&&window.sessionStorage.getItem(process.env.REACT_APP_TOKEN)
+}

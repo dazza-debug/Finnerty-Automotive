@@ -1,18 +1,33 @@
-import {useState} from 'react';
+import {useState, useEffect, useContext} from 'react';
+import {useMisc} from '../App';
 
-const booked = {
-  "booked": "true",
-  "until": "2022-03-19T10:10:30Z" 
-}
+export default function Banner({error=null, setError=null, message=null, setMessage=null}) {
+	// console.log(error);
+	const [banner, setBanner] = useState(false);
 
-export default function Banner() {
+	const {getBooked} = useContext(useMisc);
 
-	const [banner, setBanner] = useState(true);
+	useEffect(() => {
+		if(!error && !message) 
+			setBanner(getBooked?.booked);
+		// else
+			// setBanner(true);
+	}, [getBooked, error, message])
 
-	return (
-		<div className={`banner ${banner||'hide'}`}>
-			<p>We are currently booked up until ...</p>
+	return !error&&!message?(
+		<div className={`banner ${banner?'warn':'hide'}`}>
+			<p>{`We are currently booked up until ${getBooked?.until}`}</p>
 			<div className="banner-close" onClick={() => setBanner(false)}>x</div>
+		</div>
+	):!message?(
+		<div className={`banner err`}>
+			<p>{`${error}!`}</p>
+			<div className="banner-close" onClick={setError}>x</div>
+		</div>
+	):(
+		<div className={`banner log`}>
+			<p>{`${message}!`}</p>
+			<div className="banner-close" onClick={setMessage}>x</div>
 		</div>
 	);
 }
