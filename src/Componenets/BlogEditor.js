@@ -68,7 +68,7 @@ export default function BlogEditor({getUser, setMessage}) {
 
 	const sumbitForm = (event, id) => {
 		event.preventDefault();
-		fetch('http://localhost:3001/fa/blog',{
+		fetch(process.env.REACT_APP_URL + '/fa/blog',{
 			method: 'POST',
 			headers: {
 				'Content-Type': 'application/json',

@@ -72,8 +72,8 @@ export default function Blog({getUser}) {
 const blogComponent = (blogObj, navigate, key, getUser) => {
 	const nav = () => navigate(`/blog/${blogObj.id}`);
 	const convertFromHTMLtoString = html => {
-		return new DOMParser().parseFromString(html, "text/html").documentElement.innerHTML.replace(/<[^>]+>/g, " ");
-		// return doc.documentElement.innerHTML.replace(/<[^>]+>/g, " ");
+		return new DOMParser().parseFromString(html, "text/html").
+			documentElement.innerHTML.replace(/<[^>]+>/g, " ");
 	}
 	console.log(convertFromHTMLtoString(blogObj.blog))
 	return(
