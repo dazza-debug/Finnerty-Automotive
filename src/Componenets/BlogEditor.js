@@ -180,7 +180,7 @@ const saveForm = (title, blog) => {
 
 //MOVE ME TO MY OWN FILE PLZ
 const toolbarOptions = {
-  options: ['inline', 'blockType', 'list', 'colorPicker', 'link', 'embedded', 'emoji', 'image', 'remove', 'history'],
+  options: ['inline', 'blockType', 'list', 'colorPicker', 'link', 'emoji', 'remove', 'history'],
   inline: {
   	options: ['bold', 'italic', 'underline', 'strikethrough']
   },
