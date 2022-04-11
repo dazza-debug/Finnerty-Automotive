@@ -2,6 +2,7 @@ import {useState, useEffect} from 'react';
 import {useNavigate, useOutletContext} from 'react-router-dom';
 import Banner from './Banner';
 import './modal.css';
+import '../Pages/blogpost.css';
 
 import {EditorState, convertFromHTML, ContentState} from 'draft-js';
 import {Editor} from 'react-draft-wysiwyg';
