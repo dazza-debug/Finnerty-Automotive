@@ -9,21 +9,23 @@
 //I wanted to do whats above but it seems it doenst pass props through Router to the children
 //Another possible way would be to use React.Context or exporting something maybe?????
 
-import {useState, useEffect, createContext} from 'react';
+import {useState, useEffect, createContext, Suspense, lazy} from 'react';
 import {
   BrowserRouter as Router,
   Routes,
   Route
 } from "react-router-dom";
 import Home, {times, booked} from './Pages/Home';
-import HomeEditor from './Componenets/HomeEditor';
-import Login from './Pages/Login';
-import Register from './Pages/Register';
-import Blog from './Pages/Blog';
-import BlogPost from './Pages/BlogPost';
-import BlogEditor from './Componenets/BlogEditor';
 import Banner from './Componenets/Banner';
 import NotFound from './Componenets/NotFound';
+import LoadingPage from './Componenets/LoadingPage';
+
+const HomeEditor = lazy(() => import('./Componenets/HomeEditor')); //lazy
+const Login = lazy(() => import('./Pages/Login')); //lazy
+const Register = lazy(() => import('./Pages/Register')); //lazy
+const Blog = lazy(() => import('./Pages/Blog')); // lazy
+const BlogPost = lazy(() => import('./Pages/BlogPost')); //lazy 
+const BlogEditor = lazy(() => import('./Componenets/BlogEditor')); //lazy
 
 export const useMisc = createContext();
 
@@ -46,20 +48,26 @@ export default function App() {
     .catch(err => console.error(err));
   }, [])
 
+  // return fullSite(getMisc, getUser, setUser, getMessage, setMessage);
+
+  
   return loginValidation(getUser,0)?fullSite(getMisc, getUser, setUser, getMessage, setMessage)
     :emergencyShutdown(getMisc, getUser, setUser, setMessage);
+  
 }
 
 const emergencyShutdown = (getMisc, getUser, setUser, setMessage) => {
   return (
     <useMisc.Provider value={getMisc}>
       <Router>
+        <Suspense fallback={<LoadingPage />}>
           <Banner />
           <Routes>
             <Route path="*" element={<NotFound />} />
             <Route path="/" element={<Home getUser={getUser} setUser={setUser} emergency={true}/>} />
             <Route path="login" element={<Login setUser={setUser} setMessage={setMessage}/>}/>
           </Routes>
+        </Suspense>
       </Router>
     </useMisc.Provider>
   )
@@ -69,6 +77,7 @@ const fullSite = (getMisc, getUser, setUser, getMessage, setMessage) => {
   return (
     <useMisc.Provider value={getMisc}>
       <Router>
+        <Suspense fallback={<LoadingPage/>} >
           <Banner />
           {
             getMessage&&<Banner error setError message={getMessage} setMessage={() => setMessage(null)}/>
@@ -87,6 +96,7 @@ const fullSite = (getMisc, getUser, setUser, getMessage, setMessage) => {
               <Route path="editor" element={<BlogEditor getUser={getUser} setMessage={setMessage}/>} />
             </Route>
           </Routes>
+        </Suspense>
       </Router>
     </useMisc.Provider>
   )

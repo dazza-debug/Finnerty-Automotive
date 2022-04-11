@@ -3,7 +3,7 @@ import {useNavigate, useOutletContext} from 'react-router-dom';
 import Banner from './Banner';
 import './modal.css';
 
-import {EditorState, convertFromHTML, ContentState, RichUtils} from 'draft-js';
+import {EditorState, convertFromHTML, ContentState} from 'draft-js';
 import {Editor} from 'react-draft-wysiwyg';
 import {convertToHTML} from 'draft-convert';
 import BlogNavigation from '../Componenets/BlogNavigation';

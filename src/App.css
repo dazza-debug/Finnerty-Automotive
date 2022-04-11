@@ -178,7 +178,7 @@
 
 /*Services*/
 #services {
-  height: 350px;
+  height: 375px;
   width: 100%;
   position: relative;
   padding-top: 50px;
@@ -210,10 +210,12 @@
 
 .grid-item-left {
   justify-self: right;
+  margin: 0 5px 0 5px;
 }
 
 .grid-item-right {
   justify-self: left;
+  margin: 0 5px 0 5px;
 }
 
 .grid-row-cover {
@@ -430,6 +432,43 @@
   font-weight: 600;
 }
 
+/*Loading Page*/
+.loadingPage-animation {
+  position: absolute;
+  background: #dedbdb57;
+  padding: 0 10px 10px 0;
+  border-radius: 15px;
+  left: 98%;
+  top: 95%;
+  transform: translate(-98%, -95%);
+}
+
+.lds-dual-ring {
+  display: inline-block;
+  width: 80px;
+  height: 80px;
+}
+.lds-dual-ring:after {
+  content: " ";
+  display: block;
+  width: 64px;
+  height: 64px;
+  margin: 8px;
+  border-radius: 50%;
+  border: 6px solid #fff;
+  border-color: #fff transparent #fff transparent;
+  animation: lds-dual-ring 1.2s linear infinite;
+}
+@keyframes lds-dual-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
 @media only screen and (min-width: 1650px), (min-height: 1200px) {
   .App-header {
     height: 95vh;
@@ -584,9 +623,14 @@
   .services-list {
     margin: 25px 10%;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-around;
+    flex-direction: column;
+    justify-content: center;
+    /*flex-wrap: wrap;
+    justify-content: space-around;*/
     align-items: center;
+  }
+  .grid-item-left, .grid-item-right {
+    margin: 0;
   }
   #location {
     height: 400px;

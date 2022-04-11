@@ -42,7 +42,7 @@ export default function Home({getUser, setUser, emergency=false}) {
               <li className="grid-item-right">Brake & Clutch</li>
               <li className="grid-item-left">Wheel Alignments</li>
               <li className="grid-item-right">Automotive Repairs</li>
-              <li className="grid-item-left">Tires Fitment and Balancing</li>
+              <li className="grid-item-left">Tyre Fitment and Balancing</li>
               <li className="grid-item-right">Air Conditioning Services <a href="#contact">*</a></li>
               <li className="grid-row-cover">Authorized Inspection Station (including LPG)</li>
               <li className="grid-row-cover">EFI Diagnostics & Tuning Specialist</li>
@@ -72,8 +72,8 @@ export default function Home({getUser, setUser, emergency=false}) {
             <div className="about-content">
               <img src={`${process.env.PUBLIC_URL}/IMG_0935.jpeg`} alt="wheel alignemnt" width="400px" height="300px"/>
               <p>
-                We have a combined 84 years of experice within the Automotive industry and 
-                we strive to give top level service and performance to our cusomters. 
+                We have a combined 84 years of experice within the Automotive Industry and 
+                we strive to give top level service and performance to our customers. 
                 We try to always have a one on one base with our customers.
                 Our shop has lived in North Bega for over 14 years, providing the best
                 service to the Bega Valley Area. 
@@ -126,8 +126,8 @@ export default function Home({getUser, setUser, emergency=false}) {
             <p>Fax: (02) 6492 0250</p>
             <p>Email: finnertyautomotives@bigpond.com.au</p>
             <div className="footer">
-              <p className="footer-element">* Airconditioning sercicing number: <em>rta au33900</em></p>
-              <p className="footer-element">Mecanic License Number: <em>mvrl47366</em></p>
+              <p className="footer-element">* Airconditioning servicing number: <em>rta au33900</em></p>
+              <p className="footer-element">Mechanic License Number: <em>mvrl47366</em></p>
               <p className="footer-element login-tag">
                 {loginValidation(getUser, 0)?
                     <strong onClick={() => logout(setUser)}>Logout</strong>

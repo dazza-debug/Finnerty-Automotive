@@ -4,12 +4,14 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import './App.css';
 
-import App from './App';
 import reportWebVitals from './reportWebVitals';
+const App = React.lazy(() => import('./App'));
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <React.Suspense fallback={<div className="lds-container"><div className="lds-ring"><div></div><div></div><div></div><div></div></div></div>}>
+      <App />
+    </React.Suspense>
     {/*<Home />*/}
     {/*<App />*/}
   </React.StrictMode>,
